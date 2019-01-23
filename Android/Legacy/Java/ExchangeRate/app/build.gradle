@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 1
+
+android {
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "org.javanicaragua.jug.exchangerate"
+        minSdkVersion 21
+        compileSdkVersion 28
+        targetSdkVersion 28
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            useProguard false
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "free"
+    productFlavors {
+        dev {
+            dimension "free"
+            versionNameSuffix "-dev"
+        }
+        prod {
+            dimension "free"
+            versionNameSuffix "-prod"
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "exchange-rate-${variant.versionName}-${variant.buildType.name}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.android.support:appcompat-v7:$supportLibrary"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+
+    // Butterknife
+    implementation "com.jakewharton:butterknife:$butterknife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
+
+    // Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$loginInterceptor"
+
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "com.android.support.test:runner:$runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
+}
