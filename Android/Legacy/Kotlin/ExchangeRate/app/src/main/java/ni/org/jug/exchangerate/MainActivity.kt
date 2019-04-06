@@ -1,4 +1,4 @@
-package org.javanicaragua.jug.exchangerate
+package ni.org.jug.exchangerate
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

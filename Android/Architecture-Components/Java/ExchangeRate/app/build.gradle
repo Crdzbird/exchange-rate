@@ -7,7 +7,7 @@ def versionPatch = 1
 android {
     buildToolsVersion "28.0.3"
     defaultConfig {
-        applicationId "org.javanicaragua.jug.exchangerate"
+        applicationId "ni.org.jug.exchangerate"
         minSdkVersion 21
         targetSdkVersion 28
         compileSdkVersion 28
